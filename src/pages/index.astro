@@ -1,0 +1,71 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Card from "../components/Card.astro";
+import Card2 from "../components/Card2.astro";
+
+import "swiper/swiper-bundle.min.css";
+
+---
+
+<Layout >
+	<main>
+	<form>
+		<input id="sonam"  type="number" placeholder="year">
+		<br>
+		<input id="sotienmoingay" type="number" placeholder="money">
+		<br>
+		<input id="laisuat" type="number" placeholder="%">
+		<br>
+		<button type="submit">Calculator</button>
+	</form>
+
+	<h1 style="text-align: center;color:rgb(127, 185, 255);font-size: 5rem;"><span id="tongtien" >0</span><span> đồng</span></h1>
+	</main>
+</Layout>
+
+<style>
+	form{
+		max-width: 50%;
+		margin: 50px auto;
+	}
+	input{
+		width: 100%;
+		height: 30px;
+		margin-bottom: 10px;
+		padding: 10px;
+	}
+	button {
+		padding: 10px 20px;
+		border-radius: 15px;
+		display: block;
+		margin: 0 auto;
+		transition: all 0.5s;
+	}
+	button:hover{
+		font-size: 2rem;
+		background-color: greenyellow;
+	}
+</style>
+<script>
+let form = document.querySelector('form');
+form?.addEventListener('submit',function(e){
+	e.preventDefault();
+	let tong_tien = 0;
+	let LAI_SUAT = Number((document.getElementById("laisuat")  as HTMLInputElement).value) / 100;
+	let so_nam = Number((document.getElementById("sonam") as HTMLInputElement).value);
+	let so_tien = Number((document.getElementById("sotienmoingay") as HTMLInputElement).value);
+	let count = 0;
+	do {
+		let tien_lai = tong_tien * LAI_SUAT;
+		if(count % 4 ==0 ){
+			tong_tien += so_tien * 366 + tien_lai;
+		}else{
+			tong_tien += so_tien * 365 + tien_lai;
+		}
+		count++;
+	} while (count < so_nam);
+	(document.getElementById("tongtien") as HTMLInputElement).innerHTML = tong_tien.toLocaleString(2);
+})
+
+
+</script>
